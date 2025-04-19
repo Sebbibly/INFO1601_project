@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>D&D Wiki - Browse</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.3.0/dist/tailwind.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&display=swap" rel="stylesheet">
+  <style>
+    h1, h2, h3, h4 { font-family: 'Cinzel', serif; }
+    body {
+      background: url('https://wallpaperaccess.com/full/2354467.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: #f5f5dc;
+    }
+    .nav-bar {
+      background: #2b1b17;
+      color: #f0c948;
+      padding: 15px;
+      text-align: center;
+    }
+    .nav-bar a {
+      color: #f0c948;
+    }
+    .nav-bar a:hover {
+      text-decoration: underline;
+      color: #fff4b2;
+    }
+    .content {
+      background: rgba(0, 0, 0, 0.6);
+      padding: 20px;
+      margin-top: 20px;
+      border-radius: 8px;
+    }
+    .grid-item {
+      background: rgba(0, 0, 0, 0.85);
+      border: 1px solid #d9d2b7;
+      padding: 15px;
+      border-radius: 8px;
+      transition: transform 0.3s;
+    }
+    .grid-item:hover {
+      transform: scale(1.05);
+      background-color: rgba(245, 245, 220, 0.1);
+    }
+    .text-gray-300 {
+      color: #f8f8dc;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Navigation Bar -->
+<nav class="nav-bar">
+  <h1 class="text-4xl font-bold">D&D Wiki</h1>
+  <div class="space-x-4 mt-4">
+    <a href="home.html" class="text-lg">Home</a>
+    <a href="browse.html" class="text-lg">Browse</a>
+    <a href="favorites.html" class="text-lg">Favorites</a>
+  </div>
+</nav>
+
+<!-- Browse Page -->
+<section class="p-8 content">
+  <h2 class="text-3xl font-bold text-yellow-300 mb-6">Browse D&D Resources</h2>
+  <div class="grid md:grid-cols-2 gap-6">
+    <div class="grid-item">
+      <h3 class="text-xl font-semibold text-yellow-200">Spells</h3>
+      <p class="text-gray-300">Browse a comprehensive list of spells.</p>
+    </div>
+    <div class="grid-item">
+      <h3 class="text-xl font-semibold text-yellow-200">Monsters</h3>
+      <p class="text-gray-300">Explore the monsters of the D&D universe.</p>
+    </div>
+    <div class="grid-item">
+      <h3 class="text-xl font-semibold text-yellow-200">Equipment</h3>
+      <p class="text-gray-300">See various equipment and gear options.</p>
+    </div>
+    <div class="grid-item">
+      <h3 class="text-xl font-semibold text-yellow-200">Classes</h3>
+      <p class="text-gray-300">Review character classes and traits.</p>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>

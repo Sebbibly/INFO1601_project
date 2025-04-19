@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>D&D Wiki - Home</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.3.0/dist/tailwind.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&display=swap" rel="stylesheet">
+  <style>
+    h1, h2, h3, h4 { font-family: 'Cinzel', serif; }
+    body {
+      background: url('https://wallpaperaccess.com/full/2354467.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: #fdf6e3;
+    }
+    .nav-bar {
+      background: #2b1b17;
+      color: #f0c948;
+      padding: 15px;
+      text-align: center;
+    }
+    .btn {
+      background: linear-gradient(135deg, #4e3b31, #6b4e3f);
+      border: 1px solid #d9d2b7;
+      color: #f0c948;
+      font-weight: bold;
+      padding: 12px 24px;
+      border-radius: 8px;
+      text-align: center;
+      width: 100%;
+    }
+    .btn:hover {
+      background: linear-gradient(135deg, #6b4e3f, #4e3b31);
+      cursor: pointer;
+    }
+    .content {
+      background: rgba(0, 0, 0, 0.7);
+      padding: 20px;
+      margin-top: 20px;
+      border-radius: 8px;
+    }
+    a {
+      color: #f9e79f;
+    }
+    a:hover {
+      color: #fff8dc;
+    }
+    p {
+      color: #e0d9c1;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Navigation Bar -->
+<nav class="nav-bar">
+  <h1 class="text-4xl font-bold">D&D Wiki</h1>
+  <div class="space-x-4 mt-4">
+    <a href="home.html" class="text-lg hover:underline">Home</a>
+    <a href="browse.html" class="text-lg hover:underline">Browse</a>
+    <a href="favorites.html" class="text-lg hover:underline">Favorites</a>
+  </div>
+</nav>
+
+<!-- Home Page -->
+<section class="p-8 content">
+  <h2 class="text-3xl font-bold text-yellow-300 mb-6">Welcome to the D&D Wiki</h2>
+  <p>Explore spells, monsters, equipment, and more from the world of Dungeons & Dragons.</p>
+</section>
+
+</body>
+</html>

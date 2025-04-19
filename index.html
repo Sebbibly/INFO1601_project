@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>D&D Wiki - Login</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.3.0/dist/tailwind.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Uncial+Antiqua&display=swap" rel="stylesheet">
+  <style>
+    h1, h2, h3, h4, label { font-family: 'Uncial Antiqua', cursive; }
+    body {
+      background: url('https://wallpaperaccess.com/full/2354467.jpg') no-repeat center center fixed;
+      background-size: cover;
+    }
+    .btn {
+      background: rgba(78, 59, 49, 0.6);
+      border: 1px solid #f0c948;
+      color: #f0c948;
+      font-weight: bold;
+      padding: 12px 24px;
+      border-radius: 8px;
+      text-align: center;
+      width: 100%;
+      box-shadow: 0 0 8px #f0c94855;
+      transition: all 0.2s ease;
+    }
+    .btn:hover {
+      background: rgba(107, 78, 63, 0.6);
+      box-shadow: 0 0 12px #f0c948aa;
+      cursor: pointer;
+    }
+    input::placeholder {
+      color: #fcefb4;
+      opacity: 1;
+    }
+    input {
+      color: #fcefb4 !important;
+      background-color: #3b2f2f;
+      border: 1px solid #d9d2b7;
+    }
+    .title-text {
+      color: #f9db6d;
+    }
+    .label-text {
+      color: #f6e27a;
+    }
+  </style>
+</head>
+<body class="text-white">
+
+<!-- Login Section -->
+<section class="flex items-center justify-center h-screen bg-opacity-50">
+  <div class="bg-gray-900 bg-opacity-80 p-8 rounded-2xl shadow-2xl w-96 border border-yellow-400">
+    <h2 class="text-2xl font-bold title-text mb-4 text-center">Login to the D&D Wiki</h2>
+    <form onsubmit="return checkLogin(event)">
+      <label class="block mb-2 label-text" for="username">Username</label>
+      <input type="text" id="username" value="bob" class="w-full px-5 py-3 rounded text-yellow-100 mb-5 placeholder-yellow-100" placeholder="Enter your username">
+
+      <label class="block mb-2 label-text" for="password">Password</label>
+      <input type="password" id="password" value="bobpass" class="w-full px-5 py-3 rounded text-yellow-100 mb-5 placeholder-yellow-100" placeholder="Enter your password">
+
+      <button type="submit" class="btn mt-2">Login</button>
+    </form>
+  </div>
+</section>
+
+<script>
+  function checkLogin(e) {
+    e.preventDefault();
+    const u = document.getElementById("username").value;
+    const p = document.getElementById("password").value;
+    if (u === "bob" && p === "bobpass") {
+      window.location.href = "home.html";
+    } else {
+      alert("Incorrect credentials!");
+    }
+  }
+</script>
+
+</body>
+</html>
