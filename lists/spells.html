@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>D&D Wiki - Spells</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.3.0/dist/tailwind.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&display=swap" rel="stylesheet">
+  <style>
+    h1, h2, h3, h4 { font-family: 'Cinzel', serif; }
+    body {
+      background: url('https://wallpaperaccess.com/full/2354467.jpg') no-repeat center center fixed;
+      background-size: cover;
+    }
+    .nav-bar {
+      background: #2b1b17;
+      color: #f0c948;
+      padding: 15px;
+      text-align: center;
+    }
+    .content {
+      background: rgba(0, 0, 0, 0.6);
+      padding: 20px;
+      margin-top: 20px;
+      border-radius: 8px;
+    }
+    .collapsible {
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+}
+
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+.active, .collapsible:hover {
+  background-color: #ccc;
+}
+
+/* Style the collapsible content. Note: hidden by default */
+.content {
+  padding: 0 18px;
+  display: none;
+  overflow: hidden;
+  background-color: #f1f1f1;
+}
+  </style>
+</head>
+<body class="text-white">
+
+<!-- Navigation Bar -->
+<nav class="nav-bar">
+  <h1 class="text-4xl font-bold">D&D Wiki</h1>
+  <div class="space-x-4 mt-4">
+    <a href="/home.html" class="text-lg">Home</a>
+    <a href="/browse.html" class="text-lg">Browse</a>
+    <a href="/favorites.html" class="text-lg">Favorites</a>
+  </div>
+</nav>
+
+<!-- Content Section -->
+<article>
+  <div id="result" class="content"></div> 
+  <h2 class="text-2xl font-bold">Spell Search</h2>
+  <input type="text" id="spellInput" class="w-full px-5 py-3 rounded text-yellow-100 mb-5 placeholder-yellow-100" placeholder="Enter a spell name" />
+  <button id="searchButton" class="btn mt-2">Search</button>
+  <button id="prev" onclick="getDetails(-1)">Prev</button>
+  <button id="next" onclick="getDetails(1)">Next</button>
+</article>
+
+<script src="scri
+  
+</script>
+</body>
+</html>
+
