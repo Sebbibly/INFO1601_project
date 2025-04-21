@@ -2,34 +2,73 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>D&D Wiki - Favorites</title>
+  <title>D&D Wiki - Browse</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Jacquard+24&family=MedievalSharp&display=swap" rel="stylesheet">
   <style>
-    h1, h2, h3, h4 { font-family: "Jacquard 24", system-ui;}
+    h1, h2, h3, h4 , div { font-family:"Jacquard 24", system-ui;  } 
     body {
       background: url('https://www.belloflostsouls.net/wp-content/uploads/2023/10/sigil-bar.png') no-repeat center center fixed;
       background-size: cover;
+      color: #f5f5dc;
+      flex-grow: 1;
+    }
+    .title{
+     text-align: left;
+     font-size: 50px;
+
+    }
+    body {
+      background: url('https://www.belloflostsouls.net/wp-content/uploads/2023/10/sigil-bar.png') no-repeat center center fixed;
+      background-size: cover;
+      flex-grow: 1
+      ;
     }
     .nav-bar {
-      background: #2b1b17d0;
-      color: #f0c948;
+      background:#2b1b03d1;
+      border-style: ridge;
+      border-radius: 18px;
+      border-color: #000;
+      color: #cdae6f;
       padding: 15px;
+      text-align: right ;
+    }
+
+
+    .btn {
+      background: linear-gradient(135deg, #2b1b03, #6b4e3f);
+      border: 1px solid #d9d2b7;
+      border-color: #4e3b31;
+      color: #cdae6f;
+      background-color: #cdae6f;
+      font-weight: bold;
+      padding: 12px 24px;
+      border-radius: 20px;
       text-align: center;
+      width: 10%;
+    }
+
+    .btn:hover {
+      background: linear-gradient(135deg, #6b4e3f, #4e3b31);
+      cursor: pointer;
     }
     .content {
-      background: rgba(0, 0, 0, 0.6);
+      background:  rgba(0,0,0,0.7);
       padding: 20px;
       margin-top: 20px;
       border-radius: 8px;
     }
   </style>
 </head>
-<body class="text-white">
+<body class=>
 
 <!-- Navigation Bar -->
 <nav class="nav-bar">
-  <h1 class="text-4xl font-bold">D&D Wiki</h1>
+  <h1 class = "title" >D&D Wiki</h1>
   <div class="space-x-4 mt-4">
-    <a href="home.html" class="text
+    <a href="home.html" ><button class ="btn"> Home</button></a>
+    <a href="browse.html" ><button class="btn"> Browse</button></a>
+    <a href="favorites.html" ><button class ="btn">Favorites</button></a>
+  </div>
+</nav>

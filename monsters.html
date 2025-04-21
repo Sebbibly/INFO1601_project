@@ -2,43 +2,75 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="styles.css" />
-    <title>Monster Search</title>
+   <title>Monster Search</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Jacquard+24&family=MedievalSharp&display=swap" rel="stylesheet">
+   
    <style> 
-      body {
-        font-family: Arial, sans-serif;
-        background-color: #f0f0f0;
-        margin: 0;
-        padding: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        min-height: 100vh;
-      }
+      h1, h2, h3, h4 { font-family:"Jacquard 24", system-ui;  } 
+    body {
+      background: url('https://www.belloflostsouls.net/wp-content/uploads/2023/10/sigil-bar.png') no-repeat center center fixed;
+      background-size: cover;
+      color: #f5f5dc;
+      flex-grow: 1;
+    }
+    .title{
+     text-align: left;
+     color:#cdae6f;
+
+    }
+    .nav-bar {
+      background:#2b1b03d1;
+      border-style: ridge;
+      border-radius: 18px;
+      border-color: #000;
+      color: #cdae6f;
+      padding: 15px;
+      text-align: right ;
+    }
+    .nav-bar a {
+      color: #f0c948;
+    }
+    .nav-bar a:hover {
+      text-decoration: underline;
+      color: #fff4b2;
+    }
+    .btn {
+      background: linear-gradient(135deg, #2b1b03, #6b4e3f);
+      border: 1px solid #d9d2b7;
+      border-color: #4e3b31;
+      color: #cdae6f;
+      background-color: #cdae6f;
+      font-weight: bold;
+      padding: 12px 24px;
+      border-radius: 20px;
+      text-align: center;
+      width: 10%;
+    }
+    .btn:hover {
+      background: linear-gradient(135deg, #6b4e3f, #4e3b31);
+      cursor: pointer;
+    }
+    .content {
+      background: rgba(0, 0, 0, 0.6);
+      padding: 20px;
+      margin-top: 20px;
+      border-radius: 8px;
+    }
+    
       
-      .container {
-        background-color: white;
-        border-radius: 8px;
-        padding: 20px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-        text-align: center;
-      }
-      
-      h1 {
-        color: #333;
-      }
       
       #monsterInput {
         width: 100%;
         padding: 8px;
         margin-bottom: 10px;
-        border: 1px solid #ccc;
+        border: 1px solid #fff4b2;
         border-radius: 4px;
       }
       
       #searchButton {
-        background-color: #007bff;
+        background-color: #8c6a3e;
         color: white;
         border: none;
         border-radius: 4px;
@@ -49,13 +81,24 @@
       .monster-result {
         margin-top: 20px;
         padding: 10px;
-        border: 1px solid #ccc;
+        border: 1px solid #fff4b2;
         border-radius: 4px;
         text-align: left;
+      }
+      .container{
+        
       }
 </style>
   </head>
   <body>
+    <nav class="nav-bar">
+      <h1 class="title">D&D Wiki</h1>
+      <div class="space-x-4 mt-4">
+        <a href="home.html" class="text-lg hover:underline"><button class ="btn"> Home</button></a>
+        <a href="browse.html" class="text-lg hover:underline"><button class="btn"> Browse</button></a>
+        <a href="favorites.html" class="text-lg hover:underline"><button class ="btn">Favorites</button></a>
+      </div>
+    </nav>
     <div class="container">
       <h1>Monster Search</h1>
       <input type="text" id="monsterInput" placeholder="Enter a monster name" />
