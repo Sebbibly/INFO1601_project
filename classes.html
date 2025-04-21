@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>D&D Wiki - Classes</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Jacquard+24&family=MedievalSharp&display=swap" rel="stylesheet">
+  <style>
+    h1, h2, h3, h4 { font-family:"Jacquard 24", system-ui;  } 
+    body {
+      background: url('https://www.belloflostsouls.net/wp-content/uploads/2023/10/sigil-bar.png') no-repeat center center fixed;
+      background-size: cover;
+      color: #f5f5dc;
+      flex-grow: 1;
+    }
+    .title{
+     text-align: left;
+
+    }
+    .nav-bar {
+      background:#2b1b03d1;
+      border-style: ridge;
+      border-radius: 18px;
+      border-color: #000;
+      color: #cdae6f;
+      padding: 15px;
+      text-align: right ;
+    }
+    .nav-bar a {
+      color: #f0c948;
+    }
+    .nav-bar a:hover {
+      text-decoration: underline;
+      color: #fff4b2;
+    }
+    .btn {
+      background: linear-gradient(135deg, #2b1b03, #6b4e3f);
+      border: 1px solid #d9d2b7;
+      border-color: #4e3b31;
+      color: #cdae6f;
+      background-color: #cdae6f;
+      font-weight: bold;
+      padding: 12px 24px;
+      border-radius: 20px;
+      text-align: center;
+      width: 10%;
+    }
+    .btn:hover {
+      background: linear-gradient(135deg, #6b4e3f, #4e3b31);
+      cursor: pointer;
+    }
+    .content {
+      background: rgba(0, 0, 0, 0.6);
+      padding: 20px;
+      margin-top: 20px;
+      border-radius: 8px;
+    }
+    .class-item {
+      background: rgba(43, 27, 23, 0.8);
+      border: 1px solid #d9d2b7;
+      margin-bottom: 10px;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .class-header {
+      padding: 12px;
+      cursor: pointer;
+      color: #f0c948;
+      font-weight: bold;
+    }
+    .spell-header:hover {
+      background: rgba(107, 78, 63, 0.6);
+    }
+    .class-details {
+      padding: 0 18px;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.2s ease-out;
+      background-color: rgba(0, 0, 0, 0.5);
+      border-top: 1px solid #d9d2b7;
+    }
+    .class-details p {
+      margin: 10px 0;
+      color: #f5f5dc;
+    }
+    .class-details strong {
+      color: #f0c948;
+    }
+
+    input {
+      background-color: #3b2f2f;
+      border: 1px solid #d9d2b7;
+      color: #fcefb4 ;
+    }
+    input::placeholder {
+      color: #fcefb4;
+      opacity: 1;
+    }
+  </style>
+</head>
+<body class="text-white">
+
+<nav class="nav-bar">
+  <h1 class = "title" >D&D Wiki</h1>
+  <div class="space-x-4 mt-4">
+    <a href="home.html" ><button class ="btn"> Home</button></a>
+    <a href="browse.html" ><button class="btn"> Browse</button></a>
+    <a href="favorites.html" ><button class ="btn">Favorites</button></a>
+  </div>
+</nav>
+<section class="p-8 content max-w-4xl mx-auto">
+    <h2 class="text-3xl font-bold text-yellow-300 mb-6">Class Search</h2>
+    
+    <div class="flex gap-4 mb-6">
+      <input type="text" id="spellInput" class="w-full px-5 py-3 rounded placeholder-yellow-100" placeholder="Enter a class type ">
+      <button id="searchButton" class="btn">Search</button>
+    </div>
+    <div id="spellList"></div>
+    <div id="loading" class="text-center py-8 hidden"></div>
+  
+  <div class="flex gap-4 mb-6">
+      <button id="prev" class="btn" disabled>Previous</button>
+      <button id="next" class="btn">Next</button>
+    </div>
+  
+  
+  </section>
+  
+  <script src="spell-script.js"></script>
+  
+  
+  </body>
+  </html>
