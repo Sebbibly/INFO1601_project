@@ -1,5 +1,5 @@
 let currentOffset = 0;
-const monstersPerPage = 10;
+const monstersPerPage = 15;
 let allMonsters = [];
 
 const monsterList = document.getElementById('monsterResult');

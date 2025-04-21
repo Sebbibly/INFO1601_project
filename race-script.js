@@ -157,7 +157,7 @@ function searchRaces() {
         raceList.appendChild(raceElement);
     });
     
-    // Disable pagination during search
+  
     prevButton.disabled = true;
     nextButton.disabled = true;
 }

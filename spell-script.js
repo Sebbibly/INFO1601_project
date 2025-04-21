@@ -1,5 +1,5 @@
 let currentOffset = 0;
-  const spellsPerPage = 10;
+  const spellsPerPage = 15;
   let allSpells = [];
   
   const spellList = document.getElementById('spellList');
