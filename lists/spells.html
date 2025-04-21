@@ -23,30 +23,62 @@
       margin-top: 20px;
       border-radius: 8px;
     }
-    .collapsible {
-  background-color: #eee;
-  color: #444;
-  cursor: pointer;
-  padding: 18px;
-  width: 100%;
-  border: none;
-  text-align: left;
-  outline: none;
-  font-size: 15px;
-}
-
-/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
-.active, .collapsible:hover {
-  background-color: #ccc;
-}
-
-/* Style the collapsible content. Note: hidden by default */
-.content {
-  padding: 0 18px;
-  display: none;
-  overflow: hidden;
-  background-color: #f1f1f1;
-}
+    .btn {
+      background: rgba(78, 59, 49, 0.6);
+      border: 1px solid #f0c948;
+      color: #f0c948;
+      font-weight: bold;
+      padding: 12px 24px;
+      border-radius: 8px;
+      text-align: center;
+      box-shadow: 0 0 8px #f0c94855;
+      transition: all 0.2s ease;
+    }
+    .btn:hover {
+      background: rgba(107, 78, 63, 0.6);
+      box-shadow: 0 0 12px #f0c948aa;
+      cursor: pointer;
+    }
+    .spell-item {
+      background: rgba(43, 27, 23, 0.8);
+      border: 1px solid #d9d2b7;
+      margin-bottom: 10px;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .spell-header {
+      padding: 12px;
+      cursor: pointer;
+      color: #f0c948;
+      font-weight: bold;
+    }
+    .spell-header:hover {
+      background: rgba(107, 78, 63, 0.6);
+    }
+    .spell-details {
+      padding: 0 18px;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.2s ease-out;
+      background-color: rgba(0, 0, 0, 0.5);
+      border-top: 1px solid #d9d2b7;
+    }
+    .spell-details p {
+      margin: 10px 0;
+      color: #f5f5dc;
+    }
+    .spell-details strong {
+      color: #f0c948;
+    }
+    input {
+      background-color: #3b2f2f;
+      border: 1px solid #d9d2b7;
+      color: #fcefb4 !important;
+    }
+    input::placeholder {
+      color: #fcefb4;
+      opacity: 1;
+    }
   </style>
 </head>
 <body class="text-white">
@@ -55,25 +87,212 @@
 <nav class="nav-bar">
   <h1 class="text-4xl font-bold">D&D Wiki</h1>
   <div class="space-x-4 mt-4">
-    <a href="/home.html" class="text-lg">Home</a>
-    <a href="/browse.html" class="text-lg">Browse</a>
-    <a href="/favorites.html" class="text-lg">Favorites</a>
+    <a href="home.html" class="text-lg">Home</a>
+    <a href="browse.html" class="text-lg">Browse</a>
+    <a href="favorites.html" class="text-lg">Favorites</a>
   </div>
 </nav>
 
 <!-- Content Section -->
-<article>
-  <div id="result" class="content"></div> 
-  <h2 class="text-2xl font-bold">Spell Search</h2>
-  <input type="text" id="spellInput" class="w-full px-5 py-3 rounded text-yellow-100 mb-5 placeholder-yellow-100" placeholder="Enter a spell name" />
-  <button id="searchButton" class="btn mt-2">Search</button>
-  <button id="prev" onclick="getDetails(-1)">Prev</button>
-  <button id="next" onclick="getDetails(1)">Next</button>
-</article>
-
-<script src="scri
+<section class="p-8 content max-w-4xl mx-auto">
+  <h2 class="text-3xl font-bold text-yellow-300 mb-6">Spell Search</h2>
   
+  <div class="flex gap-4 mb-6">
+    <input type="text" id="spellInput" class="w-full px-5 py-3 rounded placeholder-yellow-100" 
+           placeholder="Enter a spell name">
+    <button id="searchButton" class="btn">Search</button>
+  </div>
+  
+  <div class="flex gap-4 mb-6">
+    <button id="prev" class="btn" disabled>Previous</button>
+    <button id="next" class="btn">Next</button>
+  </div>
+  
+  <div id="spellList"></div>
+  <div id="loading" class="text-center py-8 hidden">Loading spells...</div>
+</section>
+
+<script>
+  // Global variables
+  let currentOffset = 0;
+  const spellsPerPage = 10;
+  let allSpells = [];
+  
+  // DOM elements
+  const spellList = document.getElementById('spellList');
+  const loadingElement = document.getElementById('loading');
+  const prevButton = document.getElementById('prev');
+  const nextButton = document.getElementById('next');
+  const searchInput = document.getElementById('spellInput');
+  const searchButton = document.getElementById('searchButton');
+  
+  // Fetch all spells from API
+  async function fetchAllSpells() {
+    loadingElement.classList.remove('hidden');
+    spellList.innerHTML = '';
+    
+    try {
+      const response = await fetch('https://www.dnd5eapi.co/api/spells');
+      const data = await response.json();
+      allSpells = data.results;
+      displaySpells();
+    } catch (error) {
+      spellList.innerHTML = `<p class="text-red-400">Error loading spells: ${error.message}</p>`;
+    } finally {
+      loadingElement.classList.add('hidden');
+    }
+  }
+  
+  // Display spells for current page
+  function displaySpells() {
+    spellList.innerHTML = '';
+    const startIdx = currentOffset * spellsPerPage;
+    const endIdx = startIdx + spellsPerPage;
+    const spellsToShow = allSpells.slice(startIdx, endIdx);
+    
+    if (spellsToShow.length === 0) {
+      spellList.innerHTML = '<p>No spells found</p>';
+      return;
+    }
+    
+    spellsToShow.forEach(spell => {
+      const spellElement = document.createElement('div');
+      spellElement.className = 'spell-item';
+      spellElement.innerHTML = `
+        <div class="spell-header" onclick="toggleSpellDetails('${spell.index}')">
+          ${spell.name}
+        </div>
+        <div class="spell-details" id="details-${spell.index}"></div>
+      `;
+      spellList.appendChild(spellElement);
+    });
+    
+    // Update pagination buttons
+    prevButton.disabled = currentOffset === 0;
+    nextButton.disabled = endIdx >= allSpells.length;
+  }
+  
+  // Toggle spell details
+  async function toggleSpellDetails(spellIndex) {
+    const detailsElement = document.getElementById(`details-${spellIndex}`);
+    
+    if (detailsElement.innerHTML) {
+      detailsElement.style.maxHeight = detailsElement.style.maxHeight ? null : `${detailsElement.scrollHeight}px`;
+      return;
+    }
+    
+    detailsElement.innerHTML = '<p>Loading details...</p>';
+    detailsElement.style.maxHeight = `${detailsElement.scrollHeight}px`;
+    
+    try {
+      const response = await fetch(`https://www.dnd5eapi.co/api/spells/${spellIndex}`);
+      const spellData = await response.json();
+      
+      let detailsHTML = '';
+      
+      // Basic info
+      detailsHTML += `<p><strong>Level:</strong> ${spellData.level}</p>`;
+      detailsHTML += `<p><strong>School:</strong> ${spellData.school.name}</p>`;
+      
+      // Classes
+      if (spellData.classes && spellData.classes.length > 0) {
+        const classNames = spellData.classes.map(c => c.name).join(', ');
+        detailsHTML += `<p><strong>Classes:</strong> ${classNames}</p>`;
+      }
+      
+      // Subclasses
+      if (spellData.subclasses && spellData.subclasses.length > 0) {
+        const subclassNames = spellData.subclasses.map(s => s.name).join(', ');
+        detailsHTML += `<p><strong>Subclasses:</strong> ${subclassNames}</p>`;
+      }
+      
+      // Casting info
+      detailsHTML += `<p><strong>Casting Time:</strong> ${spellData.casting_time}</p>`;
+      detailsHTML += `<p><strong>Range:</strong> ${spellData.range}</p>`;
+      detailsHTML += `<p><strong>Components:</strong> ${spellData.components.join(', ')}`;
+      if (spellData.material) detailsHTML += ` (${spellData.material})`;
+      detailsHTML += `</p>`;
+      detailsHTML += `<p><strong>Duration:</strong> ${spellData.duration}</p>`;
+      
+      // Description
+      if (spellData.desc && spellData.desc.length > 0) {
+        detailsHTML += `<p><strong>Description:</strong></p>`;
+        spellData.desc.forEach(desc => {
+          detailsHTML += `<p>${desc}</p>`;
+        });
+      }
+      
+      // Higher level casting
+      if (spellData.higher_level && spellData.higher_level.length > 0) {
+        detailsHTML += `<p><strong>At Higher Levels:</strong></p>`;
+        spellData.higher_level.forEach(hl => {
+          detailsHTML += `<p>${hl}</p>`;
+        });
+      }
+      
+      detailsElement.innerHTML = detailsHTML;
+      detailsElement.style.maxHeight = `${detailsElement.scrollHeight}px`;
+    } catch (error) {
+      detailsElement.innerHTML = `<p class="text-red-400">Error loading spell details: ${error.message}</p>`;
+    }
+  }
+  
+  // Search functionality
+  function searchSpells() {
+    const searchTerm = searchInput.value.toLowerCase();
+    if (searchTerm === '') {
+      fetchAllSpells();
+      return;
+    }
+    
+    const filteredSpells = allSpells.filter(spell => 
+      spell.name.toLowerCase().includes(searchTerm)
+    );
+    
+    if (filteredSpells.length === 0) {
+      spellList.innerHTML = '<p>No spells match your search</p>';
+      prevButton.disabled = true;
+      nextButton.disabled = true;
+      return;
+    }
+    
+    // Display filtered results
+    spellList.innerHTML = '';
+    filteredSpells.forEach(spell => {
+      const spellElement = document.createElement('div');
+      spellElement.className = 'spell-item';
+      spellElement.innerHTML = `
+        <div class="spell-header" onclick="toggleSpellDetails('${spell.index}')">
+          ${spell.name}
+        </div>
+        <div class="spell-details" id="details-${spell.index}"></div>
+      `;
+      spellList.appendChild(spellElement);
+    });
+    
+    // Disable pagination for search results
+    prevButton.disabled = true;
+    nextButton.disabled = true;
+  }
+  
+  // Event listeners
+  prevButton.addEventListener('click', () => {
+    currentOffset--;
+    displaySpells();
+  });
+  
+  nextButton.addEventListener('click', () => {
+    currentOffset++;
+    displaySpells();
+  });
+  
+  searchButton.addEventListener('click', searchSpells);
+  searchInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') searchSpells();
+  });
+  
+  // Initialize
+  document.addEventListener('DOMContentLoaded', fetchAllSpells);
 </script>
 </body>
 </html>
-
