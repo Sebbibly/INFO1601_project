@@ -8,7 +8,7 @@ const nextButton = document.getElementById('next');
 const monsterInput = document.getElementById('monsterInput');
 const searchButton = document.getElementById('searchButton');
 
-// Create loading element if it doesn't exist
+
 const loadingElement = document.createElement('div');
 loadingElement.id = 'loading';
 loadingElement.className = 'hidden';
@@ -56,7 +56,7 @@ function displayMonsters() {
         monsterList.appendChild(monsterElement);
     });
     
-    // Update button states
+    
     prevButton.disabled = currentOffset === 0;
     nextButton.disabled = endIdx >= allMonsters.length;
 }
@@ -64,10 +64,10 @@ function displayMonsters() {
 async function toggleMonsterDetails(monsterIndex) {
     const detailsElement = document.getElementById(`details-${monsterIndex}`);
     
-    if (detailsElement.innerHTML) {
-        detailsElement.style.display = detailsElement.style.display === 'none' ? 'block' : 'none';
+    if (detailsElement.innerHTML) { 
+        detailsElement.style.maxHeight = detailsElement.style.maxHeight ? null : `${detailsElement.scrollHeight}px`;
         return;
-    }
+      }
 
     detailsElement.innerHTML = '<p>Loading details...</p>';
     detailsElement.style.display = 'block';
@@ -79,10 +79,26 @@ async function toggleMonsterDetails(monsterIndex) {
         
         let detailsHTML = '';
         
-        // Basic info
-        detailsHTML += `<p><strong>Hit Points:</strong> ${monsterData.hit_points} (${monsterData.hit_points_roll})</p>`;
+       
+      
+        detailsHTML += `
+            <div class="ability-scores">
+                <p style="text-align:center"><strong>Ability Scores:</strong></p>
+                <div class="ability-grid">
+                    <div>STR: ${monsterData.strength}</div>
+                    <div>DEX: ${monsterData.dexterity}</div>
+                    <div>CON: ${monsterData.constitution}</div>
+                    <div>INT: ${monsterData.intelligence}</div>
+                    <div>WIS: ${monsterData.wisdom}</div>
+                    <div>CHA: ${monsterData.charisma}</div>
+                </div>
+            </div>
+            <br>
+        `;
+
+       detailsHTML += `<p><strong>Hit Points:</strong> ${monsterData.hit_points} (${monsterData.hit_points_roll})</p>`;
         
-        // Armor Class (handling array)
+        
         if (monsterData.armor_class && monsterData.armor_class.length > 0) {
             detailsHTML += `<p><strong>Armor Class:</strong> ${monsterData.armor_class[0].value} (${monsterData.armor_class[0].type})</p>`;
         }
@@ -90,21 +106,9 @@ async function toggleMonsterDetails(monsterIndex) {
         detailsHTML += `<p><strong>Type:</strong> ${monsterData.size} ${monsterData.type}</p>`;
         detailsHTML += `<p><strong>XP:</strong> ${monsterData.xp}</p>`;
         
-        // Ability scores
-        detailsHTML += `
-            <div class="ability-scores">
-                <p><strong>Ability Scores:</strong></p>
-                <div class="ability-grid">
-                    <span>STR: ${monsterData.strength}</span>
-                    <span>DEX: ${monsterData.dexterity}</span>
-                    <span>CON: ${monsterData.constitution}</span>
-                    <span>INT: ${monsterData.intelligence}</span>
-                    <span>WIS: ${monsterData.wisdom}</span>
-                    <span>CHA: ${monsterData.charisma}</span>
-                </div>
-            </div>
-        `;
-        
+
+
+
         detailsElement.innerHTML = detailsHTML;
     } catch (error) {
         console.error('Error fetching monster details:', error);
@@ -115,7 +119,7 @@ async function toggleMonsterDetails(monsterIndex) {
 function searchMonsters() {
     const searchTerm = monsterInput.value.toLowerCase().trim();
     if (searchTerm === '') {
-        currentOffset = 0; // Reset offset when clearing search
+        currentOffset = 0;
         fetchMonsters();
         return;
     }
@@ -145,12 +149,12 @@ function searchMonsters() {
         monsterList.appendChild(monsterElement);
     });
     
-    // Disable pagination during search
+    
     prevButton.disabled = true;
     nextButton.disabled = true;
 }
 
-// Event listeners
+
 prevButton.addEventListener('click', () => {
     currentOffset--;
     displayMonsters();
@@ -166,5 +170,5 @@ monsterInput.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') searchMonsters();
 });
 
-// Initialize
+
 document.addEventListener('DOMContentLoaded', fetchMonsters);

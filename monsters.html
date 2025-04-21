@@ -108,8 +108,10 @@
     }
 
 .ability-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    display: flex;
+    flex-wrap: nowrap;
+    flex-grow: 1;
+    justify-content: space-around;
     gap: 8px;
     margin-top: 5px;
 }
