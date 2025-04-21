@@ -3,20 +3,29 @@
 <head>
   <meta charset="UTF-8" />
   <title>D&D Wiki - Browse</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.3.0/dist/tailwind.min.css" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Jacquard+24&family=MedievalSharp&display=swap" rel="stylesheet">
   <style>
-    h1, h2, h3, h4 { font-family: 'Cinzel', serif; }
+    h1, h2, h3, h4 { font-family:"Jacquard 24", system-ui;  } 
     body {
-      background: url('https://wallpaperaccess.com/full/2354467.jpg') no-repeat center center fixed;
+      background: url('https://www.belloflostsouls.net/wp-content/uploads/2023/10/sigil-bar.png') no-repeat center center fixed;
       background-size: cover;
       color: #f5f5dc;
+      flex-grow: 1;
+    }
+    .title{
+     text-align: left;
+
     }
     .nav-bar {
-      background: #2b1b17;
-      color: #f0c948;
+      background:#2b1b03d1;
+      border-style: ridge;
+      border-radius: 18px;
+      border-color: #000;
+      color: #cdae6f;
       padding: 15px;
-      text-align: center;
+      text-align: right ;
     }
     .nav-bar a {
       color: #f0c948;
@@ -24,6 +33,22 @@
     .nav-bar a:hover {
       text-decoration: underline;
       color: #fff4b2;
+    }
+    .btn {
+      background: linear-gradient(135deg, #2b1b03, #6b4e3f);
+      border: 1px solid #d9d2b7;
+      border-color: #4e3b31;
+      color: #cdae6f;
+      background-color: #cdae6f;
+      font-weight: bold;
+      padding: 12px 24px;
+      border-radius: 20px;
+      text-align: center;
+      width: 10%;
+    }
+    .btn:hover {
+      background: linear-gradient(135deg, #6b4e3f, #4e3b31);
+      cursor: pointer;
     }
     .content {
       background: rgba(0, 0, 0, 0.6);
@@ -51,11 +76,11 @@
 
 <!-- Navigation Bar -->
 <nav class="nav-bar">
-  <h1 class="text-4xl font-bold">D&D Wiki</h1>
+  <h1 class="title">D&D Wiki</h1>
   <div class="space-x-4 mt-4">
-    <a href="home.html" class="text-lg">Home</a>
-    <a href="browse.html" class="text-lg">Browse</a>
-    <a href="favorites.html" class="text-lg">Favorites</a>
+    <a href="home.html" class="text-lg hover:underline"><button class ="btn"> Home</button></a>
+    <a href="browse.html" class="text-lg hover:underline"><button class="btn"> Browse</button></a>
+    <a href="favorites.html" class="text-lg hover:underline"><button class ="btn">Favorites</button></a>
   </div>
 </nav>
 
@@ -78,6 +103,10 @@
     <div class="grid-item">
       <h3 class="text-xl font-semibold text-yellow-200">Classes</h3>
       <p class="text-gray-300">Review character classes and traits.</p>
+    </div>
+    <div class="grid-item">
+      <h3 class="text-xl font-semibold text-yellow-200">Races</h3>
+      <p class="text-gray-300">Review character Races .</p>
     </div>
   </div>
 </section>
