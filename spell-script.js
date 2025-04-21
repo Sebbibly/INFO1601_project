@@ -10,23 +10,6 @@ let currentOffset = 0;
   const searchButton = document.getElementById('searchButton');
   
 
-  async function fetchAllSpells() {
-    loadingElement.classList.remove('hidden');
-    spellList.innerHTML = '';
-    
-    try {
-      const response = await fetch('https://www.dnd5eapi.co/api/spells');
-      const data = await response.json();
-      allSpells = data.results;
-      displaySpells();
-    } catch (error) {
-      spellList.innerHTML = `<p class="text-red-400">Error loading spells: ${error.message}</p>`;
-    } finally {
-      loadingElement.classList.add('hidden');
-    }
-  }
-
-
 
 async function fetchAllSpells() {
   loadingElement.classList.remove('hidden');
@@ -40,7 +23,7 @@ async function fetchAllSpells() {
     spellList.innerHTML = `<p class="text-red-400">Error loading spells: ${error.message}</p>`;
   } finally {
     loadingElement.classList.add('hidden');
-  }
+  } 
 }
 
 
@@ -85,8 +68,8 @@ async function toggleSpellDetails(spellIndex) {
         const spellData = await response.json();
   
     let detailsHTML = ''; 
-    detailsHTML += `<p><strong>Level:</strong> ${spellData.level}</p>`;
-    detailsHTML += `<p><strong>School:</strong> ${spellData.school.name}</p>`;
+    detailsHTML += `<p><strong>Level:</strong> ${spellData.level}</p>
+                    <p><strong>School:</strong> ${spellData.school.name}</p>`;
     
     if (spellData.classes && spellData.classes.length > 0) {
       const classNames = spellData.classes.map(c => c.name).join(', ');
@@ -96,12 +79,13 @@ async function toggleSpellDetails(spellIndex) {
       const subclassNames = spellData.subclasses.map(s => s.name).join(', ');
       detailsHTML += `<p><strong>Subclasses:</strong> ${subclassNames}</p>`;
     }
-    detailsHTML += `<p><strong>Casting Time:</strong> ${spellData.casting_time}</p>`;
-    detailsHTML += `<p><strong>Range:</strong> ${spellData.range}</p>`;
-    detailsHTML += `<p><strong>Components:</strong> ${spellData.components.join(', ')}`;
+    detailsHTML += `<p><strong>Casting Time:</strong> ${spellData.casting_time}</p>
+                    <p><strong>Range:</strong> ${spellData.range}</p>
+                    <p><strong>Components:</strong> ${spellData.components.join(', ')}`;
+
     if (spellData.material) detailsHTML += ` (${spellData.material})`;
-    detailsHTML += `</p>`;
-    detailsHTML += `<p><strong>Duration:</strong> ${spellData.duration}</p>`;
+    detailsHTML += `</p>
+                    <p><strong>Duration:</strong> ${spellData.duration}</p>`;
     
     if (spellData.desc && spellData.desc.length > 0) {
       detailsHTML += `<p><strong>Description:</strong></p>`;
@@ -122,7 +106,7 @@ async function toggleSpellDetails(spellIndex) {
   }
 }
 
-function searchSpells() {
+function searchSpells(currentOffset) {
   const searchTerm = searchInput.value.toLowerCase();
   if (searchTerm === '') {
     fetchAllSpells();
@@ -148,10 +132,11 @@ function searchSpells() {
       <div class="spell-header" onclick="toggleSpellDetails('${spell.index}')">
         ${spell.name}
       </div>
-      <div class="spell-details" id="details-${spell.index}"></div>`;
+      <div class="spell-details" id="details-${spell.index}"></div>
+    `;
     spellList.appendChild(spellElement);
   });
-  
+
  
   prevButton.disabled = true;
   nextButton.disabled = true;
@@ -174,3 +159,4 @@ searchInput.addEventListener('keypress', (e) => {
 });
 
 document.addEventListener('DOMContentLoaded', fetchAllSpells);
+

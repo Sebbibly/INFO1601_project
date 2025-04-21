@@ -59,35 +59,65 @@
       border-radius: 8px;
     }
     
-      
-      
-      #monsterInput {
-        width: 100%;
-        padding: 8px;
-        margin-bottom: 10px;
-        border: 1px solid #fff4b2;
-        border-radius: 4px;
-      }
-      
-      #searchButton {
-        background-color: #8c6a3e;
-        color: white;
-        border: none;
-        border-radius: 4px;
-        padding: 8px 12px;
-        cursor: pointer;
-      }
-      
-      .monster-result {
-        margin-top: 20px;
-        padding: 10px;
-        border: 1px solid #fff4b2;
-        border-radius: 4px;
-        text-align: left;
-      }
-      .container{
-        
-      }
+    .content {
+      background: rgba(0, 0, 0, 0.6);
+      padding: 20px;
+      margin-top: 20px;
+      border-radius: 8px;
+    }
+    
+    .monster-item {
+      background: rgba(43, 27, 23, 0.8);
+      border: 1px solid #d9d2b7;
+      margin-bottom: 10px;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .monster-header {
+      padding: 12px;
+      cursor: pointer;
+      color: #f0c948;
+      font-weight: bold;
+    }
+    .monster-header:hover {
+      background: rgba(107, 78, 63, 0.6);
+    }
+    .monster-details {
+      padding: 0 18px;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.2s ease-out;
+      background-color: rgba(0, 0, 0, 0.5);
+      border-top: 1px solid #d9d2b7;
+    }
+    .monster-details p {
+      margin: 10px 0;
+      color: #f5f5dc;
+    }
+    .monster-details strong {
+      color: #f0c948;
+    }
+    input {
+      background-color: #3b2f2f;
+      border: 1px solid #d9d2b7;
+      color: #fcefb4 ;
+    }
+    input::placeholder {
+      color: #fcefb4;
+      opacity: 1;
+    }
+
+.ability-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-top: 5px;
+}
+
+.hidden {
+    display: none;
+}
+     
 </style>
   </head>
   <body>
@@ -102,9 +132,16 @@
     <div class="container">
       <h1>Monster Search</h1>
       <input type="text" id="monsterInput" placeholder="Enter a monster name" />
-      <button id="searchButton">Search</button>
+      <button id="searchButton" class="btn">Search</button>
       <div id="monsterResult" class="monster-result"></div>
     </div>
+
+    
+<div class="flex gap-4 mb-6">
+  <button id="prev" class="btn" disabled>Previous</button>
+  <button id="next" class="btn">Next</button>
+</div>
+
     <script src="monster-script.js"></script>
   </body>
 </html>
