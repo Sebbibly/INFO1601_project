@@ -2,13 +2,13 @@ let currentOffset = 0;
 const equiptsPerPage = 15;
 let allequipts = [];
 
-// Get DOM elements
+
 const equiptList = document.getElementById('equiptList');
 const prevButton = document.getElementById('prev');
 const nextButton = document.getElementById('next');
 const equiptInput = document.getElementById('equiptInput');
 const searchButton = document.getElementById('searchButton');
-const loadingElement = document.getElementById('loading'); // Use existing element
+const loadingElement = document.getElementById('loading'); 
 
 
 async function fetchEquipts() {
@@ -80,7 +80,7 @@ async function toggleequiptDetails(equiptIndex) {
         
         let detailsHTML = '';
         
-        // Fixed typo: equipt_category -> equipment_category
+        
         detailsHTML += `<p><strong>Category:</strong> ${equiptData.equipment_category?.name || 'N/A'}</p>`;
         
         if (equiptData.cost) {
@@ -123,8 +123,6 @@ async function toggleequiptDetails(equiptIndex) {
 }
 
 function searchEquipts() {
-    if (!equiptInput || !equiptList || !prevButton || !nextButton) return;
-    
     const searchTerm = equiptInput.value.toLowerCase().trim();
     if (searchTerm === '') {
         currentOffset = 0;
@@ -161,7 +159,7 @@ function searchEquipts() {
     nextButton.disabled = true;
 }
 
-// Event listeners - fixed function name to match
+
 prevButton.addEventListener('click', () => {
     currentOffset--;
     displayequipts();
@@ -177,5 +175,5 @@ equiptInput.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') searchEquipts();
 });
 
-// Initialize
+
 document.addEventListener('DOMContentLoaded', fetchEquipts);
