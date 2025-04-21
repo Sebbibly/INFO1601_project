@@ -103,11 +103,27 @@ async function toggleMonsterDetails(monsterIndex) {
             detailsHTML += `<p><strong>Armor Class:</strong> ${monsterData.armor_class[0].value} (${monsterData.armor_class[0].type})</p>`;
         }
         
-        detailsHTML += `<p><strong>Type:</strong> ${monsterData.size} ${monsterData.type}</p>`;
-        detailsHTML += `<p><strong>XP:</strong> ${monsterData.xp}</p>`;
+        detailsHTML += `<p><strong>Type:</strong> ${monsterData.size} ${monsterData.type}</p>
+                        <p><strong>XP:</strong> ${monsterData.xp}</p>`;
         
 
+        if (monsterData.damage_vulnerabilities && monsterData.damage_vulnerabilities.length > 0) {
+            detailsHTML += `<p><strong>Vulnerable to:</strong> ${monsterData.damage_vulnerabilities.join(', ')}</p>`;
+        } else {
+            detailsHTML += `<p><strong>Vulnerable to:</strong> None</p>`;
+        }
 
+        if (monsterData.damage_resistances && monsterData.damage_resistances.length > 0) {
+            detailsHTML += `<p><strong>Resistant to:</strong> ${monsterData.damage_resistances.join(', ')}</p>`;    
+        } else {
+            detailsHTML += `<p><strong>Resistant to:</strong> None</p>`;
+        }
+
+        if (monsterData.damage_immunities && monsterData.damage_immunities.length > 0) {
+            detailsHTML += `<p><strong>Immune to:</strong> ${monsterData.damage_immunities.join(', ')}</p>`;
+        } else {
+            detailsHTML += `<p><strong>Immune to:</strong> None</p>`;
+        }
 
         detailsElement.innerHTML = detailsHTML;
     } catch (error) {
