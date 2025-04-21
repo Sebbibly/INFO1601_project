@@ -69,7 +69,7 @@
       color: #f0c948;
       font-weight: bold;
     }
-    .spell-header:hover {
+    .class-header:hover {
       background: rgba(107, 78, 63, 0.6);
     }
     .class-details {
@@ -97,6 +97,16 @@
       color: #fcefb4;
       opacity: 1;
     }
+    .hidden {
+    display: none;
+}
+
+.ability-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-top: 5px;
+}
   </style>
 </head>
 <body class="text-white">
@@ -113,21 +123,21 @@
     <h2 class="text-3xl font-bold text-yellow-300 mb-6">Class Search</h2>
     
     <div class="flex gap-4 mb-6">
-      <input type="text" id="spellInput" class="w-full px-5 py-3 rounded placeholder-yellow-100" placeholder="Enter a class type ">
+      <input type="text" id="classInput" class="w-full px-5 py-3 rounded placeholder-yellow-100" placeholder="Enter a class type ">
       <button id="searchButton" class="btn">Search</button>
     </div>
-    <div id="spellList"></div>
+    <div id="classList"></div>
     <div id="loading" class="text-center py-8 hidden"></div>
   
   <div class="flex gap-4 mb-6">
-      <button id="prev" class="btn" disabled>Previous</button>
-      <button id="next" class="btn">Next</button>
+      <button id="prev" class="hidden" >Previous</button>
+      <button id="next" class="hidden">Next</button>
     </div>
   
   
   </section>
   
-  <script src="spell-script.js"></script>
+  <script src="class-script.js"></script>
   
   
   </body>
