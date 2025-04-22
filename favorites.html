@@ -59,6 +59,21 @@
       margin-top: 20px;
       border-radius: 8px;
     }
+    .fav-btn {
+  transition: all 0.3s;
+}
+
+.fav-btn:hover {
+  transform: scale(1.2);
+}
+
+.remove-fav {
+  transition: all 0.3s;
+}
+
+.remove-fav:hover {
+  transform: scale(1.2);
+}
   </style>
 </head>
 <body class=>
@@ -72,3 +87,88 @@
     <a href="favorites.html" ><button class ="btn">Favorites</button></a>
   </div>
 </nav>
+
+<section class="p-8 content">
+  <h2 class="text-3xl font-bold text-yellow-300 mb-6">Your Favorites</h2>
+  <div class="grid md:grid-cols-2 gap-6" id="favoritesContainer">
+    <!-- Favorites will be loaded here -->
+  </div>
+</section>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-auth.js";
+  import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyANCgNSYbO7VWii8ttsMayIKcPymgZxzv4",
+    authDomain: "d-and-d-wiki-login.firebaseapp.com",
+    projectId: "d-and-d-wiki-login",
+    storageBucket: "d-and-d-wiki-login.appspot.com",
+    messagingSenderId: "793824660029",
+    appId: "1:793824660029:web:19579976bed64f3fef3854"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth();
+  const db = getFirestore();
+
+  onAuthStateChanged(auth, async (user) => {
+    if (user) {
+      const userRef = doc(db, "users", user.uid);
+      const userDoc = await getDoc(userRef);
+      const favorites = userDoc.data()?.favorites || [];
+      
+      const container = document.getElementById('favoritesContainer');
+      container.innerHTML = '';
+      
+      if (favorites.length === 0) {
+        container.innerHTML = '<p class="text-gray-300">You have no favorites yet. Browse items to add some!</p>';
+        return;
+      }
+      
+      favorites.forEach(fav => {
+        const favItem = document.createElement('div');
+        favItem.className = 'grid-item';
+        favItem.innerHTML = `
+          <a href="${fav.url}" class="link">${fav.title}</a>
+          <button class="remove-fav" data-title="${fav.title}" style="float: right; background: none; border: none; color: #ff6b6b; cursor: pointer;">✕</button>
+          <p class="text-gray-300">${fav.type}</p>
+        `;
+        container.appendChild(favItem);
+      });
+      
+      // Add remove handlers
+      document.querySelectorAll('.remove-fav').forEach(btn => {
+        btn.addEventListener('click', async (e) => {
+          e.preventDefault();
+          const title = btn.getAttribute('data-title');
+          const userRef = doc(db, "users", user.uid);
+          
+          try {
+            const userDoc = await getDoc(userRef);
+            const favorites = userDoc.data()?.favorites || [];
+            const itemToRemove = favorites.find(fav => fav.title === title);
+            
+            if (itemToRemove) {
+              await updateDoc(userRef, {
+                favorites: arrayRemove(itemToRemove)
+              });
+              btn.closest('.grid-item').remove();
+              
+              if (document.querySelectorAll('.grid-item').length === 0) {
+                container.innerHTML = '<p class="text-gray-300">You have no favorites yet. Browse items to add some!</p>';
+              }
+            }
+          } catch (error) {
+            console.error("Error removing favorite: ", error);
+          }
+        });
+      });
+    } else {
+      window.location.href = 'index.html';
+    }
+  });
+</script>
+</body>
+</html>

@@ -73,6 +73,21 @@
     .text-gray-300 {
       color: #f8f8dc;
     }
+    .fav-btn {
+  transition: all 0.3s;
+}
+
+.fav-btn:hover {
+  transform: scale(1.2);
+}
+
+.remove-fav {
+  transition: all 0.3s;
+}
+
+.remove-fav:hover {
+  transform: scale(1.2);
+}
   </style>
 </head>
 <body>
@@ -113,6 +128,109 @@
     </div>
   </div>
 </section>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-auth.js";
+  import { getFirestore, doc, setDoc, getDoc, updateDoc, arrayUnion, arrayRemove } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js";
 
+  const firebaseConfig = {
+    apiKey: "AIzaSyANCgNSYbO7VWii8ttsMayIKcPymgZxzv4",
+    authDomain: "d-and-d-wiki-login.firebaseapp.com",
+    projectId: "d-and-d-wiki-login",
+    storageBucket: "d-and-d-wiki-login.appspot.com",
+    messagingSenderId: "793824660029",
+    appId: "1:793824660029:web:19579976bed64f3fef3854"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth();
+  const db = getFirestore();
+
+  // Add favorite buttons to each grid item
+  document.addEventListener('DOMContentLoaded', () => {
+    const gridItems = document.querySelectorAll('.grid-item');
+    
+    gridItems.forEach(item => {
+      const link = item.querySelector('a');
+      const title = link.textContent;
+      const url = link.getAttribute('href');
+      
+      // Create favorite button
+      const favButton = document.createElement('button');
+      favButton.innerHTML = '☆';
+      favButton.className = 'fav-btn';
+      favButton.style.float = 'right';
+      favButton.style.background = 'none';
+      favButton.style.border = 'none';
+      favButton.style.color = '#f0c948';
+      favButton.style.cursor = 'pointer';
+      favButton.style.fontSize = '1.5em';
+      
+      // Insert before the link
+      link.parentNode.insertBefore(favButton, link.nextSibling);
+      
+      // Add click handler
+      favButton.addEventListener('click', async (e) => {
+        e.preventDefault();
+        const user = auth.currentUser;
+        
+        if (!user) {
+          alert('Please log in to save favorites');
+          return;
+        }
+        
+        const userRef = doc(db, "users", user.uid);
+        const itemData = {
+          title: title,
+          url: url,
+          type: title.toLowerCase() // e.g. "spells", "monsters"
+        };
+        
+        try {
+          // Check if already favorited
+          const userDoc = await getDoc(userRef);
+          let favorites = userDoc.data()?.favorites || [];
+          const isFavorited = favorites.some(fav => fav.title === title);
+          
+          if (isFavorited) {
+            // Remove from favorites
+            await updateDoc(userRef, {
+              favorites: arrayRemove(itemData)
+            });
+            favButton.innerHTML = '☆';
+          } else {
+            // Add to favorites
+            await updateDoc(userRef, {
+              favorites: arrayUnion(itemData)
+            });
+            favButton.innerHTML = '★';
+          }
+        } catch (error) {
+          console.error("Error updating favorites: ", error);
+        }
+      });
+    });
+    
+    // Update button states based on current favorites
+    onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        const userRef = doc(db, "users", user.uid);
+        const userDoc = await getDoc(userRef);
+        const favorites = userDoc.data()?.favorites || [];
+        
+        document.querySelectorAll('.grid-item').forEach(item => {
+          const title = item.querySelector('a').textContent;
+          const favButton = item.querySelector('.fav-btn');
+          
+          if (favorites.some(fav => fav.title === title)) {
+            favButton.innerHTML = '★';
+          } else {
+            favButton.innerHTML = '☆';
+          }
+        });
+      }
+    });
+  });
+</script>
 </body>
 </html>

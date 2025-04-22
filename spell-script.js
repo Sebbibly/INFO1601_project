@@ -45,6 +45,7 @@ function displaySpells() {
                               </div>
                               <div class="spell-details" id="details-${spell.index}"></div>`;
     spellList.appendChild(spellElement);
+    
   });
   
 
