@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <title >D&D Wiki - Home</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.3.0/dist/tailwind.min.css" rel="stylesheet">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Jacquard+24&family=MedievalSharp&display=swap" rel="stylesheet">
@@ -74,7 +75,16 @@
       margin-top: 20px;
       border-radius: 8px;
     }
+    .user-info {
+  color: #cdae6f;
+  font-size: 18px;
+  margin: 10px 0;
+  padding: 10px;
+  background: rgba(43, 27, 3, 0.7);
+  border-radius: 5px;
+}
   </style>
+  <script type="module" src="./home.js"></script>
 </head>
 <body>
 
@@ -85,7 +95,7 @@
     <a href="home.html" ><button class ="btn"> Home</button></a>
     <a href="browse.html" ><button class="btn"> Browse</button></a>
     <a href="favorites.html" ><button class ="btn">Favorites</button></a>
-    <button class="theme_btn">Suprise</button>
+    <!--<a href="index.html" ><button class ="btn">Log In</button></a>-->
   </div>
 </nav>
 
@@ -93,6 +103,10 @@
 <section class="p-8 content">
   <h2 class= "welcome">Welcome to the Dugeons & Dragons Wiki</h2>
   <p style="text-align: center;color: #cdae6f;">Explore spells, monsters, equipment, and more from the world of Dungeons & Dragons.</p>
+  <div class="user-info">First Name: <span id="loggedUserFName"></span></div>
+  <div class="user-info">Last Name: <span id="loggedUserLName"></span></div>
+  <div class="user-info">Email: <span id="loggedUserEmail"></span></div>
+  <button class="btn" id="logout" style="margin-top: 20px;">Logout</button>
 </section>
 
 </body>

@@ -2,80 +2,99 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>D&D Wiki - Login</title>
+  <title>D&D Wiki - Login and Register </title>
+  <script  type="module" src="login.js"></script>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.3.0/dist/tailwind.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Uncial+Antiqua&display=swap" rel="stylesheet">
   <style>
-    h1, h2, h3, h4, label { font-family: 'Uncial Antiqua', cursive; }
+    h1, h2, h3, h4  ,label, div { font-family: 'Uncial Antiqua', cursive; } 
     body {
       background: url('https://www.belloflostsouls.net/wp-content/uploads/2023/10/sigil-bar.png') no-repeat center center fixed;
       background-size: cover;
+      color: #f5f5dc;
       flex-grow: 1;
     }
-    .btn {
-      background: #322c23(78, 59, 49, 0.6);
-      border: 1px solid #eba10e ;
-      color: #eba10e ;
-      font-weight: bold;
-      padding: 12px 24px;
-      border-radius: 8px;
-      text-align: center;
-      width: 20%;
-      box-shadow: 0 0 8px #eba10e 55;
-      transition: all 0.2s ease;
-    }
-    .btn:hover {
-      background:  #322c23(107, 78, 63, 0.6);
-      box-shadow: 0 0 12px #eba10e aa;
-      cursor: pointer;
-    }
-    input::placeholder {
-      color: #fcefb4;
-      opacity: 1;
-    }
-    input {
-      color: #fcefb4 !important;
-      background-color: #3b2f2f;
-      border: 1px solid #d9d2b7;
-    }
-    .title-text {
-      color: #f9db6d;
-    }
-    .label-text {
-      color: #f6e27a;
-    }
+
   </style>
 </head>
-<body class="text-white">
-
-<!-- Login Section -->
-<section class="flex items-center justify-center h-screen bg-opacity-50">
-  <div class="bg-gray-900 bg-opacity-80 p-8 rounded-2xl shadow-2xl w-96 border border-yellow-400">
-    <h2 class="text-2xl font-bold title-text mb-4 text-center">Login to the D&D Wiki</h2>
-    <form onsubmit="return checkLogin(event)">
-      <label class="block mb-2 label-text" for="username">Username</label>
-      <input type="text" id="username" value="bob" class="w-full px-5 py-3 rounded text-yellow-100 mb-5 placeholder-yellow-100" placeholder="Enter your username">
-
-      <label class="block mb-2 label-text" for="password">Password</label>
-      <input type="password" id="password" value="bobpass" class="w-full px-5 py-3 rounded text-yellow-100 mb-5 placeholder-yellow-100" placeholder="Enter your password">
-
-      <button type="submit" class="btn mt-2">Login</button>
+<body>
+  <div class="container" id="signup" style="display:none;">
+    <h1 class="form-title">Register</h1>
+    <form method="post" action="">
+      <div id="signUpMessage" class="messageDiv" style="display:none;"></div>
+      <div class="input-group">
+         <i class="fas fa-user"></i>
+         <input type="text"  id="fName" placeholder="First Name" required>
+         <label for="fname">Username</label>
+      </div>
+      <div class="input-group">
+          <i class="fas fa-user"></i>
+          <input type="text"  id="lName" placeholder="Last Name" required>
+          <label for="lName">Additional name</label>
+      </div>
+      <div class="input-group">
+          <i class="fas fa-envelope"></i>
+          <input type="email"  id="rEmail" placeholder="Email" required>
+          <label for="rEmail">Email</label>
+      </div>
+      <div class="input-group">
+          <i class="fas fa-lock"></i>
+          <input type="password" id="rPassword"  placeholder="Password" required>
+          <label for="rPassword">Password</label>
+      </div>
+     <button class="btn" id="submitSignUp" >Sign Up</button>
     </form>
+    <p class="or">
+      ----------or--------
+    </p>
+    <div class="icons">
+      <i class="fab fa-google"></i>
+      <i class="fab fa-facebook"></i>
+    </div>
+    <div class="links">
+      <p>Already Have Account ?</p>
+      <button id="signInButton">Sign In</button>
+    </div>
   </div>
-</section>
 
-<script>
-  function checkLogin(e) {
-    e.preventDefault();
-    const u = document.getElementById("username").value;
-    const p = document.getElementById("password").value;
-    if (u === "bob" && p === "bobpass") {
-      window.location.href = "home.html";
-    } else {
-      alert("Incorrect credentials!");
-    }
-  }
-</script>
+<div class="container" id="signIn">
+      <h1 class="form-title">Sign In</h1>
+      <form method="post" action="">
+        <div id="signInMessage" class="messageDiv" style="display:none;"></div>
 
+        <div class="input-group">
+            <i class="fas fa-envelope"></i>
+            <input type="email"  id="email" placeholder="Email" required>
+            <label for="email">Email</label>
+        </div>
+        
+        <div class="input-group">
+          <i class="fas fa-envelope"></i>
+          <input type="text"  id="fName" placeholder="Username" required>
+          <label for="fName">Username</label>
+      </div>
+        <div class="input-group">
+            <i class="fas fa-lock"></i>
+          <input type="password" id="password"  placeholder="Password" required>
+            <label for="password">Password</label>
+        </div>
+        <p class="recover">
+          <a href="#">Recover Password</a>
+        </p>
+       <button  class="btn"  id="submitSignIn">Sign In</button>
+      </form>
+      <p class="or">
+        ----------or--------
+      </p>
+      <div class="icons">
+        <i class="fab fa-google"></i>
+        <i class="fab fa-facebook"></i>
+      </div>
+      <div class="links">
+        <p>Don't have account yet?</p>
+        <button id="signUpButton">Sign Up</button>
+      </div>
+    </div>
+    <script src="script.js"></script>
 </body>
 </html>
